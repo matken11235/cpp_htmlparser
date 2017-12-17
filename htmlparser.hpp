@@ -2,13 +2,12 @@
 #define __HTMLPARSER_HPP__
 
 #include <string>
-#include <vector>
 #include <iostream>
 
 namespace htmlparser
 {
 	template <class InputIterator, class RangeIterator>
-	InputIterator search(InputIterator first1, InputIterator last1, RangeIterator first2, RangeIterator last2)
+	constexpr InputIterator search(InputIterator first1, InputIterator last1, RangeIterator first2, RangeIterator last2)
 	{
 		RangeIterator tag_itr = first2;
 		for ( ; first1 != last1; ++first1)
@@ -28,11 +27,13 @@ namespace htmlparser
 	template <class InputIterator, class stringT, class charT>
 	bool find(InputIterator first, InputIterator last, stringT& out, const charT& tag)
 	{
-		const std::string begin_tag = "<" + static_cast<std::string>(tag) + ">";
+		using namespace std::string_literals;
+
+		const std::string begin_tag = "<"s + tag + ">";
 		InputIterator begin_tag_itr = htmlparser::search(first, last, begin_tag.begin(), begin_tag.end());
 		if (begin_tag_itr == last) return false;
 
-		const std::string end_tag = "</" + static_cast<std::string>(tag) + ">";
+		const std::string end_tag = "</"s + tag + ">";
 		InputIterator end_tag_itr = htmlparser::search(begin_tag_itr+begin_tag.size(), last, end_tag.begin(), end_tag.end());
 		if (end_tag_itr == last) return false;
 
@@ -40,15 +41,17 @@ namespace htmlparser
 		return true;
 	}
 
-	template <class InputIterator, class vsT>
-	bool find_all(InputIterator first, InputIterator last, vsT& out, const std::string& tag, const std::string& class_="NULL")
+	template <class InputIterator, class OutputVector, class TagString, class ClassString=std::string>
+	bool find_all(InputIterator first, InputIterator last, OutputVector& out, const TagString& tag, const ClassString& class_="NULL")
 	{
+		using namespace std::string_literals;
+
 		std::string begin_tag;
 		if (class_ == "NULL")
-			begin_tag = "<" + static_cast<std::string>(tag) + ">";
+			begin_tag = "<"s + tag + ">";
 		else
-			begin_tag = "<" + static_cast<std::string>(tag) + " class=\"" + class_ + "\">";
-		const std::string end_tag   = "</"+ static_cast<std::string>(tag) + ">";
+			begin_tag = "<"s + tag + " class=\"" + class_ + "\">";
+		const std::string end_tag = "</"s + tag + ">";
 
 		while (true)
 		{
