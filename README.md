@@ -2,6 +2,6 @@
 $ mv htmlparser.hpp /usr/local/include
 ```
 
-```:cpp
+```cpp
 #include <htmlparser.hpp>
 ```
