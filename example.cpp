@@ -33,5 +33,7 @@ int main(int argc, char const *argv[]) {
 			std::cout << r << std::endl;
 	std::cout << "====== END htmlparser::find_all class_ ======" << std::endl;
 
+	std::cout << std::endl;
+
 	return 0;
 }

@@ -6,6 +6,7 @@
 
 namespace htmlparser
 {
+	// https://github.com/EzoeRyou/cpp17book/blob/master/050-cpp17-lib-misc-searchers.md
 	template <class InputIterator, class RangeIterator>
 	constexpr InputIterator search(InputIterator first1, InputIterator last1, RangeIterator first2, RangeIterator last2)
 	{
